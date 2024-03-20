@@ -9,6 +9,7 @@ from loadtest.load_tester import LoadTester
 
 app = typer.Typer()
 
+
 def construct_test_matrix(config_file):
     with open(config_file, "r") as f:
         config = json.load(f)
@@ -22,9 +23,11 @@ def construct_test_matrix(config_file):
         )
     )
 
+
 def fractional_design(matrix, fraction=0.5):
     sample_size = int(len(matrix) * fraction)
     return random.sample(matrix, sample_size)
+
 
 def save_results_to_csv(results, filename):
     headers = [
@@ -41,15 +44,14 @@ def save_results_to_csv(results, filename):
         writer.writerow(headers)
         writer.writerows(results)
 
+
 @app.command()
 def main(
     config_path: str = typer.Option(
-        "loadtest/test_config.json",
-        help="The path to the configuration JSON file."
+        "loadtest/test_config.json", help="The path to the configuration JSON file."
     ),
     data_dir: str = typer.Option(
-        "loadtest/data",
-        help="The directory where the output results will be saved."
+        "loadtest/data", help="The directory where the output results will be saved."
     ),
     design_type: str = typer.Option(
         "full", help="The design type of the test matrix: 'full' or 'fractional'."
@@ -100,6 +102,7 @@ def main(
 
     # Save the results to the CSV file
     save_results_to_csv(results, filename)
+
 
 if __name__ == "__main__":
     app()

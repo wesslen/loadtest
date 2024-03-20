@@ -6,7 +6,8 @@ def test_httpbenchmark_initialization():
     """
     Test the initialization of the HTTPBenchmark class.
     """
-    url = "http://example.com"
+    base_url = "http://example.com/"
+    url = "posts"
     num_requests = 10
     method = "POST"
     data = {"key": "value"}
@@ -14,6 +15,7 @@ def test_httpbenchmark_initialization():
     concurrency = 2
 
     benchmark = HTTPBenchmark(
+        base_url=base_url,
         url=url,
         num_requests=num_requests,
         method=method,
@@ -22,6 +24,7 @@ def test_httpbenchmark_initialization():
         concurrency=concurrency
     )
 
+    assert benchmark.base_url == base_url
     assert benchmark.url == url
     assert benchmark.num_requests == num_requests
     assert benchmark.method == method
@@ -42,7 +45,7 @@ def test_make_request_get_success():
         mock_response.elapsed.total_seconds.return_value = 0.1
         mock_get.return_value = mock_response
 
-        benchmark = HTTPBenchmark(url="http://example.com", num_requests=1)
+        benchmark = HTTPBenchmark(base_url="http://example.com/", url="posts", num_requests=1)
         benchmark._make_request()
 
         # Ensure a latency was recorded and is greater than zero, and no errors were incremented.
@@ -58,7 +61,7 @@ def test_make_request_with_exception():
         # Simulate a request exception
         mock_get.side_effect = requests.RequestException
 
-        benchmark = HTTPBenchmark(url="http://example.com", num_requests=1)
+        benchmark = HTTPBenchmark(base_url="http://example.com/", url="posts", num_requests=1)
         benchmark._make_request()
 
         # Ensure no latency was recorded and an error was incremented.
@@ -78,7 +81,7 @@ def test_run_method_with_concurrency():
         mock_thread.side_effect = lambda *args, **kwargs: MagicMock(start=MagicMock(), join=MagicMock())
 
         with patch('loadtest.__main__.HTTPBenchmark._make_request'):
-            benchmark = HTTPBenchmark(url="http://example.com", num_requests=num_requests, concurrency=concurrency)
+            benchmark = HTTPBenchmark(base_url="http://example.com/", url="posts", num_requests=num_requests, concurrency=concurrency)
 
             with patch('loadtest.__main__.HTTPBenchmark.display_results'):
                 benchmark.run()

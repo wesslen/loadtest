@@ -5,15 +5,23 @@ import numpy as np
 from rich.console import Console
 from rich.table import Table
 import typer
-from .constants import TEST_URL
+from .constants import TEST_URL, BASE_URL
 
 app = typer.Typer()
 
 
 class HTTPBenchmark:
     def __init__(
-        self, url, num_requests, method="GET", data=None, headers=None, concurrency=1
+        self,
+        base_url,
+        url,
+        num_requests,
+        method="GET",
+        data=None,
+        headers=None,
+        concurrency=1,
     ):
+        self.base_url = base_url
         self.url = url
         self.num_requests = num_requests
         self.method = method
@@ -27,9 +35,13 @@ class HTTPBenchmark:
         try:
             start_time = time.time()
             if self.method == "GET":
-                response = requests.get(self.url, headers=self.headers)
+                response = requests.get(
+                    f"{self.base_url}/{self.url}", headers=self.headers
+                )
             elif self.method == "POST":
-                response = requests.post(self.url, data=self.data, headers=self.headers)
+                response = requests.post(
+                    f"{self.base_url}/{self.url}", data=self.data, headers=self.headers
+                )
             end_time = time.time()
             self.latencies.append(end_time - start_time)
         except requests.RequestException:
@@ -44,6 +56,7 @@ class HTTPBenchmark:
         table = Table(show_header=True, header_style="bold magenta")
         table.add_column("Metric", style="dim", width=20)
         table.add_column("Value")
+        table.add_row("BASE_URL", self.base_url)
         table.add_row("URL", self.url)
         table.add_row("Total Requests", str(self.num_requests))
         table.add_row("Failed Requests", str(self.errors))
@@ -70,6 +83,7 @@ class HTTPBenchmark:
 
 @app.command()
 def main(
+    base_url: str = typer.Option(BASE_URL, help="The Base URL to benchmark."),
     url: str = typer.Option(TEST_URL, help="The URL to benchmark."),
     num_requests: int = typer.Option(100, help="Total number of requests to perform."),
     method: str = typer.Option("GET", help="HTTP method to use."),
@@ -80,7 +94,11 @@ def main(
     displays the results including various latency metrics, and handles concurrent requests.
     """
     benchmark = HTTPBenchmark(
-        url=url, num_requests=num_requests, method=method, concurrency=concurrency
+        base_url=base_url,
+        url=url,
+        num_requests=num_requests,
+        method=method,
+        concurrency=concurrency,
     )
     benchmark.run()
 

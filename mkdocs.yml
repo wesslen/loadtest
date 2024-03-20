@@ -1,5 +1,7 @@
 site_name: loadtest
 theme: readthedocs
-
+nav:
+  - Home: README.md
+  - API: cli.md
 plugins:
   - search

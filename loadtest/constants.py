@@ -1,1 +1,2 @@
-TEST_URL = "https://fireworks.ai/"
+TEST_URL = "comments"
+BASE_URL = "https://jsonplaceholder.typicode.com/"

@@ -28,39 +28,55 @@ This repo was developed using Python 3.10 and Mac/Unix. It has not yet been test
 ```
 (venv) $ python -m loadtest
 
-┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Metric               ┃ Value                 ┃
-┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
-│ URL                  │ https://fireworks.ai/ │
-│ Total Requests       │ 100                   │
-│ Failed Requests      │ 0                     │
-│ Median Latency       │ 0.3541 seconds        │
-│ 75% Latency          │ 0.4154 seconds        │
-│ 95% Latency          │ 0.6565 seconds        │
-│ 99% Latency          │ 0.7993 seconds        │
-└──────────────────────┴───────────────────────┘
+python -m loadtest
+
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value                                 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ BASE_URL             │ https://jsonplaceholder.typicode.com/ │
+│ URL                  │ comments                              │
+│ Total Requests       │ 100                                   │
+│ Failed Requests      │ 0                                     │
+│ Median Latency       │ 0.1623 seconds                        │
+│ 75% Latency          │ 0.1676 seconds                        │
+│ 95% Latency          │ 0.2029 seconds                        │
+│ 99% Latency          │ 0.2076 seconds                        │
+└──────────────────────┴───────────────────────────────────────┘
 ```
 
 Since `loadtest` is a `typer` function, you may use `--help` to provide simple docs:
 
 ```
 (venv) $ python -m loadtest --help
-                                                                                                            
- Usage: python -m loadtest [OPTIONS]                                                                                    
-                                                                                                            
- Simple HTTP benchmarking tool.                                                                                         
-╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ --url                       TEXT                             The URL to benchmark. [default: https://fireworks.ai/]  │
-│ --num-requests              INTEGER                          Total number of requests to perform. [default: 100]     │
-│ --method                    TEXT                             HTTP method to use. [default: GET]                      │
-│ --concurrency               INTEGER                          Number of concurrent requests. [default: 1]             │
-│ --install-completion        [bash|zsh|fish|powershell|pwsh]  Install completion for the specified shell.             │
-│                                                              [default: None]                                         │
-│ --show-completion           [bash|zsh|fish|powershell|pwsh]  Show completion for the specified shell, to copy it or  │
-│                                                              customize the installation.                             │
-│                                                              [default: None]                                         │
-│ --help                                                       Show this message and exit.                             │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+Executes a simple HTTP benchmarking tool that performs a specified number of HTTP requests 
+ to a given URL, displays the results including various latency metrics, and handles        
+ concurrent requests.                                                                       
+                                                                                            
+╭─ Options ────────────────────────────────────────────────────────────────────────────────╮
+│ --base-url                  TEXT                           The Base URL to benchmark.    │
+│                                                            [default:                     │
+│                                                            https://jsonplaceholder.typi… │
+│ --url                       TEXT                           The URL to benchmark.         │
+│                                                            [default: comments]           │
+│ --num-requests              INTEGER                        Total number of requests to   │
+│                                                            perform.                      │
+│                                                            [default: 100]                │
+│ --method                    TEXT                           HTTP method to use.           │
+│                                                            [default: GET]                │
+│ --concurrency               INTEGER                        Number of concurrent          │
+│                                                            requests.                     │
+│                                                            [default: 1]                  │
+│ --install-completion        [bash|zsh|fish|powershell|pws  Install completion for the    │
+│                             h]                             specified shell.              │
+│                                                            [default: None]               │
+│ --show-completion           [bash|zsh|fish|powershell|pws  Show completion for the       │
+│                             h]                             specified shell, to copy it   │
+│                                                            or customize the              │
+│                                                            installation.                 │
+│                                                            [default: None]               │
+│ --help                                                     Show this message and exit.   │
+╰──────────────────────────────────────────────────────────────────────────────────────────╯
+
 ```
 
 # Tests
