@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>CLI Reference - loadtest</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CLI Reference";
+        var mkdocs_page_input_path = "cli.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> loadtest
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Overview</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">CLI Reference</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#loadtest">loadtest</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#loadtestload_tester">loadtest.load_tester</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testsrun_tests">tests.run_tests</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testsvisualize_results">tests.visualize_results</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">loadtest</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CLI Reference</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="cli-reference">CLI Reference</h1>
+<p>This page provides documentation for the command line tools.</p>
+<h2 id="loadtest"><code>loadtest</code></h2>
+<p>Executes a simple HTTP benchmarking tool that performs a specified number of HTTP requests to a given URL,
+displays the results including various latency metrics, and handles concurrent requests.</p>
+<p>This tool allows users to specify the target URL, the total number of requests, the HTTP method (GET or POST), and
+the level of concurrency for the requests. It provides a detailed report on the performance of the HTTP requests,
+including metrics such as median, 75th percentile, 95th percentile, and 99th percentile latencies.</p>
+<p>Parameters:</p>
+<ul>
+<li>url (str): The URL to be benchmarked. This is the target endpoint where the HTTP requests will be sent.</li>
+<li>num_requests (int): The total number of HTTP requests to perform against the target URL. This defines the load
+    intensity of the benchmark.</li>
+<li>method (str): The HTTP method to use for the requests. This can be either 'GET' or 'POST'. The default method is
+    'GET'.</li>
+<li>concurrency (int): The number of concurrent requests to make. This parameter allows the benchmark to simulate
+    multiple users or processes making requests to the same endpoint simultaneously.</li>
+</ul>
+<p>The benchmark will output a table showing the URL tested, the total number of requests made, the number of failed
+requests, and latency statistics (median, 75%, 95%, and 99% latencies) to provide a comprehensive view of the
+endpoint's performance under the specified load.</p>
+<p>Example usage:</p>
+<pre><code class="language-shell">python -m loadtest --url http://example.com --num_requests 100 --method GET --concurrency 10
+</code></pre>
+<p>This command will benchmark the specified URL using 100 GET requests with 10 concurrent requests.</p>
+<p>Note: The tool requires an internet connection to perform the HTTP requests and the URL provided should be accessible
+from the host machine where the script is run.</p>
+<h2 id="loadtestload_tester"><code>loadtest.load_tester</code></h2>
+<p>Executes a load test on a specified endpoint using a specified number of concurrent requests of a given type and,
+for POST requests, a specified payload size. The function reports on the success and failure of the requests and
+provides a summary of the test's execution time.</p>
+<p>Parameters:</p>
+<ul>
+<li>endpoint (str): The target URL for the load testing. This should be a valid HTTP or HTTPS endpoint where the load
+    test will send the requests.</li>
+<li>request_type (str): Specifies the type of HTTP request to perform. Valid options are 'GET' or 'POST'. This
+    determines the HTTP method used to interact with the endpoint.</li>
+<li>payload_size (int): Defines the size of the payload in bytes for POST requests. This is ignored for GET requests.
+    The payload is a string of repeated 'x' characters of the specified size.</li>
+<li>concurrency (int): The number of requests to send concurrently. This simulates multiple users or systems
+    interacting with the endpoint simultaneously and can help assess the endpoint's capacity to handle multiple
+    requests.</li>
+</ul>
+<p>The function performs the load test by sending the specified number of concurrent requests to the endpoint. For POST
+requests, it sends a payload of the specified size with each request. The function counts the number of successful
+requests and failures and prints a summary of the test results, including the total duration of the test, the number
+of successful creations (for POST requests), and the number of failures.</p>
+<p>Example usage:</p>
+<pre><code class="language-shell">python -m loadtest.load_tester --endpoint http://example.com/api --request_type POST --payload_size 500 --concurrency 10
+</code></pre>
+<p>This command will send 10 concurrent POST requests to the specified endpoint, each with a payload of 500 bytes.</p>
+<p>Note: This script is intended for load testing purposes and should be used responsibly. Ensure that you have
+permission to perform load testing on the target endpoint and that the test will not negatively impact the endpoint
+or its network.</p>
+<p>Returns:</p>
+<ul>
+<li>duration (float): The total time taken to execute all the requests in seconds.</li>
+<li>creations (int): The number of successful resource creations (relevant for POST requests).</li>
+<li>failures (int): The number of requests that resulted in failure (e.g., due to server errors or timeouts).</li>
+</ul>
+<h2 id="testsrun_tests"><code>tests.run_tests</code></h2>
+<p>Executes a series of load tests based on configurations defined in a JSON file, allowing for either full or
+fractional testing. The script generates a test matrix from the configuration, runs the tests as per the matrix,
+and saves the results to a CSV file.</p>
+<p>The test matrix is constructed from a combination of endpoints, request types, payload sizes, and concurrency levels
+specified in the configuration file. Users can choose to run all possible combinations (full) or a random fraction
+of these combinations (fractional).</p>
+<p>Parameters:</p>
+<ul>
+<li>design_type (str): Specifies the type of test matrix design to use. It can be 'full' for testing all combinations
+    or 'fractional' for testing a fraction of all combinations.</li>
+<li>fraction (float): Specifies the fraction of the test matrix to execute. This is required if design_type is
+    'fractional'. For example, a fraction of 0.5 means that half of the total combinations will be randomly selected
+    and tested.</li>
+</ul>
+<p>The script performs the following steps:</p>
+<ol>
+<li>Constructs the test matrix from the configuration file.</li>
+<li>Depending on the design_type, it either uses the full matrix or selects a fraction of the combinations.</li>
+<li>Executes the load tests for each combination in the final test matrix using the LoadTester class.</li>
+<li>Collects the results from each test, including the duration, number of creations, and number of failures.</li>
+<li>Saves the results in a CSV file with a timestamp in the filename to ensure uniqueness.</li>
+</ol>
+<p>Results are saved in the 'tests/data' directory with filenames following the 'results_YYYYMMDD_HHMMSS.csv' format.</p>
+<p>Example usage:</p>
+<pre><code class="language-shell">python -m tests.run_tests --design_type fractional --fraction 0.5
+</code></pre>
+<p>This command will execute a load test using a fractional design, testing only half of the possible combinations
+defined in the test configuration file.</p>
+<p>Note: This script assumes the presence of a JSON configuration file ('tests/test_config.json') and relies on the
+<code>LoadTester</code> class for executing the load tests.</p>
+<h2 id="testsvisualize_results"><code>tests.visualize_results</code></h2>
+<p>Launches a Streamlit app to visualize load test results from CSV files stored in a specified directory.</p>
+<p>The app provides interactive controls to select a results file, endpoint, request type, and metric for
+visualization. It displays a line chart and a detailed data table based on the selections.</p>
+<p>Parameter:</p>
+<ul>
+<li>data_dir (str): Path to the directory containing the CSV files with load test results. By default it is <code>tests/data</code></li>
+</ul>
+<p>The Streamlit app includes:</p>
+<ul>
+<li>A dropdown to select a results file from the specified directory.</li>
+<li>A dropdown to select an endpoint from the available options in the selected file.</li>
+<li>Dropdowns to select the type of request and the metric (Duration or Failures) to display on the y-axis of the chart.</li>
+<li>An Altair line chart visualizing the selected metric over concurrency levels, colored by payload sizes.</li>
+<li>A data table displaying the detailed data for the selected filters.</li>
+</ul>
+<p>To run the app, execute the command: <code>python -m streamlit run tests/visualize_results.py --data-dir &lt;path_to_data_dir&gt;</code></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
