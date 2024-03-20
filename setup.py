@@ -16,7 +16,7 @@ setup(
     long_description=readme,
     long_description_content_type='text/markdown',
     packages=find_packages(),
-    package_data={'loadtest': ['loadtest/loadtest/test_config.json']},
+    package_data={'loadtest': ['loadtest/test_config.json']},
     install_requires=requirements,
     extra_requires=requirements_dev,
 )

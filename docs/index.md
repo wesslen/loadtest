@@ -105,19 +105,25 @@ This test will print results to console as well as save results as a `.csv` file
 
 ```zsh
 (venv) $ python -m loadtest.run_tests --help
-                                                                                                                                                                            
- Usage: python -m loadtest.run_tests [OPTIONS]                                                                                                                                 
-                                                                                                                                                                            
+ Usage: python -m loadtest.run_tests [OPTIONS]                                                                                                  
+                                                                                                                                                
  Executes a series of load tests based on configurations defined in a JSON file, allowing for either full or fractional testing. The script     
- generates a test matrix from the configuration, runs the tests as per the matrix, and saves the results to a CSV file.                                                                                                              
-                                                                                                                                                                            
-╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ --design-type               TEXT                             The design type of the test matrix: 'full' or 'fractional'. [default: full]                                 │
-│ --fraction                  FLOAT                            The fraction of the test matrix to use, required only if design_type is 'fractional'. [default: None]       │
-│ --install-completion        [bash|zsh|fish|powershell|pwsh]  Install completion for the specified shell. [default: None]                                                 │
-│ --show-completion           [bash|zsh|fish|powershell|pwsh]  Show completion for the specified shell, to copy it or customize the installation. [default: None]          │
-│ --help                                                       Show this message and exit.                                                                                 │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+ generates a test matrix from the configuration, runs the tests as per the matrix, and saves the results to a specified output directory.       
+                                                                                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ --config-path               TEXT                             The path to the configuration JSON file. [default: loadtest/test_config.json]   │
+│ --data-dir                  TEXT                             The directory where the output results will be saved. [default: loadtest/data]  │
+│ --design-type               TEXT                             The design type of the test matrix: 'full' or 'fractional'. [default: full]     │
+│ --fraction                  FLOAT                            The fraction of the test matrix to use, required only if design_type is         │
+│                                                              'fractional'.                                                                   │
+│                                                              [default: None]                                                                 │
+│ --install-completion        [bash|zsh|fish|powershell|pwsh]  Install completion for the specified shell. [default: None]                     │
+│ --show-completion           [bash|zsh|fish|powershell|pwsh]  Show completion for the specified shell, to copy it or customize the            │
+│                                                              installation.                                                                   │
+│                                                              [default: None]                                                                 │
+│ --help                                                       Show this message and exit.                                                     │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
 ```
 
 # Visualizing Tests

@@ -9,7 +9,6 @@ from loadtest.load_tester import LoadTester
 
 app = typer.Typer()
 
-
 def construct_test_matrix(config_file):
     with open(config_file, "r") as f:
         config = json.load(f)
@@ -23,11 +22,9 @@ def construct_test_matrix(config_file):
         )
     )
 
-
 def fractional_design(matrix, fraction=0.5):
     sample_size = int(len(matrix) * fraction)
     return random.sample(matrix, sample_size)
-
 
 def save_results_to_csv(results, filename):
     headers = [
@@ -44,9 +41,16 @@ def save_results_to_csv(results, filename):
         writer.writerow(headers)
         writer.writerows(results)
 
-
 @app.command()
 def main(
+    config_path: str = typer.Option(
+        "loadtest/test_config.json",
+        help="The path to the configuration JSON file."
+    ),
+    data_dir: str = typer.Option(
+        "loadtest/data",
+        help="The directory where the output results will be saved."
+    ),
     design_type: str = typer.Option(
         "full", help="The design type of the test matrix: 'full' or 'fractional'."
     ),
@@ -58,11 +62,10 @@ def main(
     """
     Executes a series of load tests based on configurations defined in a JSON file, allowing for either full or
     fractional testing. The script generates a test matrix from the configuration, runs the tests as per the matrix,
-    and saves the results to a CSV file.
+    and saves the results to a specified output directory.
     """
 
-    config_file = "loadtest/test_config.json"
-    test_matrix = construct_test_matrix(config_file)
+    test_matrix = construct_test_matrix(config_path)
     final_matrix = (
         test_matrix
         if design_type == "full"
@@ -89,7 +92,6 @@ def main(
         )
 
     # Ensure the data directory exists
-    data_dir = "loadtest/data"
     os.makedirs(data_dir, exist_ok=True)
 
     # Create a timestamped filename for the results
@@ -98,7 +100,6 @@ def main(
 
     # Save the results to the CSV file
     save_results_to_csv(results, filename)
-
 
 if __name__ == "__main__":
     app()

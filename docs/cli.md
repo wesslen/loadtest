@@ -87,7 +87,8 @@ specified in the configuration file. Users can choose to run all possible combin
 of these combinations (fractional).
 
 Parameters:
-
+- config_path (str): The path to the configuration JSON file. By default, it's set to `loadtest/test_config.json`.
+- data_dir (str): The directory where the output results will be saved. By default it is `loadtest/data`.
 - design_type (str): Specifies the type of test matrix design to use. It can be 'full' for testing all combinations
     or 'fractional' for testing a fraction of all combinations.
 - fraction (float): Specifies the fraction of the test matrix to execute. This is required if design_type is
@@ -112,8 +113,7 @@ python -m loadtest.run_tests --design-type fractional --fraction 0.5
 This command will execute a load test using a fractional design, testing only half of the possible combinations
 defined in the test configuration file.
 
-Note: This script assumes the presence of a JSON configuration file ('tests/test_config.json') and relies on the
-`LoadTester` class for executing the load tests.
+Note: This script relies on the `LoadTester` class for executing the load tests.
 
 ## `loadtest.visualize_results`
 
