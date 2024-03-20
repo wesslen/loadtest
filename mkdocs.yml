@@ -1,0 +1,5 @@
+site_name: loadtest
+theme: readthedocs
+
+plugins:
+  - search

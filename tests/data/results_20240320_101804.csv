@@ -1,0 +1,25 @@
+Endpoint,Request Type,Payload Size,Concurrency,Duration,Creations,Failures
+https://jsonplaceholder.typicode.com/comments,POST,500,100,19.37457799911499,100,0
+https://jsonplaceholder.typicode.com/todos,POST,100,50,8.926276922225952,50,0
+https://jsonplaceholder.typicode.com/todos,POST,1000,100,17.481079816818237,100,0
+https://jsonplaceholder.typicode.com/comments,POST,500,10,1.6851038932800293,10,0
+https://jsonplaceholder.typicode.com/comments,POST,1000,1,0.19370412826538086,1,0
+https://jsonplaceholder.typicode.com/comments,GET,100,50,9.020037174224854,0,0
+https://jsonplaceholder.typicode.com/todos,GET,500,10,1.4176568984985352,0,0
+https://jsonplaceholder.typicode.com/todos,GET,100,1,0.13245081901550293,0,0
+https://jsonplaceholder.typicode.com/todos,POST,1000,1,0.1736290454864502,1,0
+https://jsonplaceholder.typicode.com/todos,POST,500,1,0.15999197959899902,1,0
+https://jsonplaceholder.typicode.com/todos,GET,1000,100,15.091097831726074,0,0
+https://jsonplaceholder.typicode.com/todos,GET,500,1,0.13218212127685547,0,0
+https://jsonplaceholder.typicode.com/comments,POST,100,100,17.86464285850525,100,0
+https://jsonplaceholder.typicode.com/todos,GET,1000,50,7.57513689994812,0,0
+https://jsonplaceholder.typicode.com/comments,POST,1000,50,8.740459680557251,50,0
+https://jsonplaceholder.typicode.com/comments,GET,1000,10,1.6366839408874512,0,0
+https://jsonplaceholder.typicode.com/comments,GET,500,10,1.6251587867736816,0,0
+https://jsonplaceholder.typicode.com/todos,POST,1000,10,1.7755823135375977,10,0
+https://jsonplaceholder.typicode.com/todos,POST,100,100,17.379517316818237,100,0
+https://jsonplaceholder.typicode.com/todos,POST,500,10,1.713620901107788,10,0
+https://jsonplaceholder.typicode.com/comments,POST,500,1,0.15635013580322266,1,0
+https://jsonplaceholder.typicode.com/todos,GET,500,50,7.381541728973389,0,0
+https://jsonplaceholder.typicode.com/todos,POST,100,1,0.16173291206359863,1,0
+https://jsonplaceholder.typicode.com/todos,POST,500,50,8.804441928863525,50,0

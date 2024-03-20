@@ -1,0 +1,10 @@
+{
+    "endpoints": [
+      "https://jsonplaceholder.typicode.com/comments",
+      "https://jsonplaceholder.typicode.com/todos"
+    ],
+    "request_types": ["GET", "POST"],
+    "payload_sizes": [100, 500, 1000],  
+    "concurrency_levels": [1, 10, 50, 100]
+  }
+  
