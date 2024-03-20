@@ -2,6 +2,8 @@
 
 `loadtest` is a general-purpose HTTP load-testing and benchmarking library.
 
+Docs can be found here [https://wesslen.github.io/loadtest/](https://wesslen.github.io/loadtest/).
+
 # Setup
 
 You can install the package via `pip`:
@@ -25,6 +27,7 @@ This repo was developed using Python 3.10 and Mac/Unix. It has not yet been test
 
 ```
 (venv) $ python -m loadtest
+
 ┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Metric               ┃ Value                 ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
@@ -37,8 +40,6 @@ This repo was developed using Python 3.10 and Mac/Unix. It has not yet been test
 │ 99% Latency          │ 0.7993 seconds        │
 └──────────────────────┴───────────────────────┘
 ```
-
-You may modify the tested URL by modifying `TEST_URL` in `loadtest/contants.py`.
 
 Since `loadtest` is a `typer` function, you may use `--help` to provide simple docs:
 
@@ -64,13 +65,7 @@ Since `loadtest` is a `typer` function, you may use `--help` to provide simple d
 
 # Tests
 
-To run the tests, make sure to install all developer requirements by running:
-
-```zsh
-(venv) $ python -m pip install -r requirements-dev.txt
-```
-
-Next, you may modify the load test matrix by modifying the file `tests/test_config.json`:
+Next, you may modify the load test matrix by modifying the file `loadtest/test_config.json`:
 
 ```json
 {
@@ -90,7 +85,7 @@ I also used `jsonplaceholder`'s default API's as dummy endpoints. You would want
 
 ```zsh
 # from the root
-(venv) $ python -m tests.run_tests full
+(venv) $ python -m loadtest.run_tests full
 Executed 1 GET requests to https://jsonplaceholder.typicode.com/comments with payload size 100 bytes in 0.23 seconds.
 Executed 10 GET requests to https://jsonplaceholder.typicode.com/comments with payload size 100 bytes in 1.71 seconds.
 ...
@@ -100,20 +95,21 @@ Alternatively, you may run a fractional by running:
 
 ```zsh
 # from the root
-(venv) $ python -m tests.run_tests fractional 0.5
+(venv) $ python -m loadtest.run_tests fractional 0.5
 Executed 1 GET requests to https://jsonplaceholder.typicode.com/comments with payload size 100 bytes in 0.23 seconds.
 Executed 50 GET requests to https://jsonplaceholder.typicode.com/comments with payload size 500 bytes in 8.53 seconds.
 ...
 ```
 
-This test will print results to console as well as save results as a `.csv` file in `tests/data` with a timestamped named.
+This test will print results to console as well as save results as a `.csv` file in `loadtest/data` with a timestamped named.
 
 ```zsh
-(venv) $ python -m tests.run_tests --help
+(venv) $ python -m loadtest.run_tests --help
                                                                                                                                                                             
- Usage: python -m tests.run_tests [OPTIONS]                                                                                                                                 
+ Usage: python -m loadtest.run_tests [OPTIONS]                                                                                                                                 
                                                                                                                                                                             
- Runs a series of load tests based on a configuration file.                                                                                                                 
+ Executes a series of load tests based on configurations defined in a JSON file, allowing for either full or fractional testing. The script     
+ generates a test matrix from the configuration, runs the tests as per the matrix, and saves the results to a CSV file.                                                                                                              
                                                                                                                                                                             
 ╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ --design-type               TEXT                             The design type of the test matrix: 'full' or 'fractional'. [default: full]                                 │
@@ -129,7 +125,7 @@ This test will print results to console as well as save results as a `.csv` file
 You may run a streamlit app to visualize the results by running:
 
 ```
-(venv) $ python -m streamlit run tests/visualize_results.py
+(venv) $ python -m streamlit run loadtest/visualize_results.py
 ```
 
 ![](img/streamlit.png)

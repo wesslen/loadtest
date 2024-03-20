@@ -76,7 +76,7 @@ Returns:
 - failures (int): The number of requests that resulted in failure (e.g., due to server errors or timeouts).
 
 
-## `tests.run_tests`
+## `loadtest.run_tests`
 
 Executes a series of load tests based on configurations defined in a JSON file, allowing for either full or
 fractional testing. The script generates a test matrix from the configuration, runs the tests as per the matrix,
@@ -102,11 +102,11 @@ The script performs the following steps:
 4. Collects the results from each test, including the duration, number of creations, and number of failures.
 5. Saves the results in a CSV file with a timestamp in the filename to ensure uniqueness.
 
-Results are saved in the 'tests/data' directory with filenames following the 'results_YYYYMMDD_HHMMSS.csv' format.
+Results are saved in the 'loadtest/data' directory with filenames following the 'results_YYYYMMDD_HHMMSS.csv' format.
 
 Example usage:
 ```shell
-python -m tests.run_tests --design-type fractional --fraction 0.5
+python -m loadtest.run_tests --design-type fractional --fraction 0.5
 ```
 
 This command will execute a load test using a fractional design, testing only half of the possible combinations
@@ -115,7 +115,7 @@ defined in the test configuration file.
 Note: This script assumes the presence of a JSON configuration file ('tests/test_config.json') and relies on the
 `LoadTester` class for executing the load tests.
 
-## `tests.visualize_results`
+## `loadtest.visualize_results`
 
 Launches a Streamlit app to visualize load test results from CSV files stored in a specified directory.
 
@@ -134,4 +134,4 @@ The Streamlit app includes:
 - An Altair line chart visualizing the selected metric over concurrency levels, colored by payload sizes.
 - A data table displaying the detailed data for the selected filters.
 
-To run the app, execute the command: `python -m streamlit run tests/visualize_results.py --data-dir <path_to_data_dir>`
+To run the app, execute the command: `python -m streamlit run loadtest/visualize_results.py --data-dir <path_to_data_dir>`

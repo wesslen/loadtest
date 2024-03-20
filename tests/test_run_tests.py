@@ -1,6 +1,6 @@
 import json
 from unittest.mock import mock_open, patch
-from tests import run_tests
+from loadtest import run_tests
 
 def test_construct_test_matrix():
     # Mock data to simulate the content of config_file
@@ -18,7 +18,7 @@ def test_construct_test_matrix():
     ))
 
     # Use mock_open to mock the open function within construct_test_matrix
-    with patch("tests.run_tests.open", mock_open(read_data=json.dumps(mock_data))) as mocked_file:
+    with patch("loadtest.run_tests.open", mock_open(read_data=json.dumps(mock_data))) as mocked_file:
         # Call the function under test
         result_matrix = run_tests.construct_test_matrix("dummy_config_file")
 

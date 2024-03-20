@@ -16,7 +16,6 @@ setup(
     long_description=readme,
     long_description_content_type='text/markdown',
     packages=find_packages(),
-    package_data={'loadtest': ['tests/*']},
     install_requires=requirements,
     extra_requires=requirements_dev,
 )
