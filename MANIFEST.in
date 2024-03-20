@@ -1,1 +1,1 @@
-include loadtest/test_config.json
+include loadtest/loadtest/test_config.json
