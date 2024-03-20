@@ -27,7 +27,7 @@ endpoint's performance under the specified load.
 
 Example usage:
 ```shell
-python -m loadtest --url http://example.com --num_requests 100 --method GET --concurrency 10
+python -m loadtest --url http://example.com --num-requests 100 --method GET --concurrency 10
 ```
 
 This command will benchmark the specified URL using 100 GET requests with 10 concurrent requests.
@@ -60,7 +60,7 @@ of successful creations (for POST requests), and the number of failures.
 
 Example usage:
 ```shell
-python -m loadtest.load_tester --endpoint http://example.com/api --request_type POST --payload_size 500 --concurrency 10
+python -m loadtest.load_tester --endpoint http://example.com/api --request-type POST --payload-size 500 --concurrency 10
 ```
 
 This command will send 10 concurrent POST requests to the specified endpoint, each with a payload of 500 bytes.
@@ -106,7 +106,7 @@ Results are saved in the 'tests/data' directory with filenames following the 're
 
 Example usage:
 ```shell
-python -m tests.run_tests --design_type fractional --fraction 0.5
+python -m tests.run_tests --design-type fractional --fraction 0.5
 ```
 
 This command will execute a load test using a fractional design, testing only half of the possible combinations
