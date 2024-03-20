@@ -61,7 +61,7 @@ def main(
     and saves the results to a CSV file.
     """
 
-    config_file = "loadtest/tests/test_config.json"
+    config_file = "loadtest/test_config.json"
     test_matrix = construct_test_matrix(config_file)
     final_matrix = (
         test_matrix
@@ -89,7 +89,7 @@ def main(
         )
 
     # Ensure the data directory exists
-    data_dir = "loadtest/tests/data"
+    data_dir = "loadtest/data"
     os.makedirs(data_dir, exist_ok=True)
 
     # Create a timestamped filename for the results
