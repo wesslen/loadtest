@@ -74,6 +74,7 @@
               
                 <h1 id="overview">Overview</h1>
 <p><code>loadtest</code> is a general-purpose HTTP load-testing and benchmarking library.</p>
+<p>Docs can be found here <a href="https://wesslen.github.io/loadtest/">https://wesslen.github.io/loadtest/</a>.</p>
 <h1 id="setup">Setup</h1>
 <p>You can install the package via <code>pip</code>:</p>
 <pre><code>pip install &quot;loadtest @ git+https://github.com/wesslen/loadtest&quot;
@@ -87,6 +88,7 @@ $ source venv/bin/activate
 <p>This repo was developed using Python 3.10 and Mac/Unix. It has not yet been tested on different Python versions and OS (e.g., Windows).</p>
 <h1 id="execute">Execute</h1>
 <pre><code>(venv) $ python -m loadtest
+
 ┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Metric               ┃ Value                 ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
@@ -99,7 +101,6 @@ $ source venv/bin/activate
 │ 99% Latency          │ 0.7993 seconds        │
 └──────────────────────┴───────────────────────┘
 </code></pre>
-<p>You may modify the tested URL by modifying <code>TEST_URL</code> in <code>loadtest/contants.py</code>.</p>
 <p>Since <code>loadtest</code> is a <code>typer</code> function, you may use <code>--help</code> to provide simple docs:</p>
 <pre><code>(venv) $ python -m loadtest --help
 
@@ -120,10 +121,7 @@ $ source venv/bin/activate
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 </code></pre>
 <h1 id="tests">Tests</h1>
-<p>To run the tests, make sure to install all developer requirements by running:</p>
-<pre><code class="language-zsh">(venv) $ python -m pip install -r requirements-dev.txt
-</code></pre>
-<p>Next, you may modify the load test matrix by modifying the file <code>tests/test_config.json</code>:</p>
+<p>Next, you may modify the load test matrix by modifying the file <code>loadtest/test_config.json</code>:</p>
 <pre><code class="language-json">{
     &quot;endpoints&quot;: [
       &quot;https://jsonplaceholder.typicode.com/comments&quot;,
@@ -137,24 +135,25 @@ $ source venv/bin/activate
 <p>By default, I'm using these ranges. You would want to adjust these values to reflect realistic scenarios for the application being tested.</p>
 <p>I also used <code>jsonplaceholder</code>'s default API's as dummy endpoints. You would want to change these to reflect the endpoint you want to test.</p>
 <pre><code class="language-zsh"># from the root
-(venv) $ python -m tests.run_tests full
+(venv) $ python -m loadtest.run_tests full
 Executed 1 GET requests to https://jsonplaceholder.typicode.com/comments with payload size 100 bytes in 0.23 seconds.
 Executed 10 GET requests to https://jsonplaceholder.typicode.com/comments with payload size 100 bytes in 1.71 seconds.
 ...
 </code></pre>
 <p>Alternatively, you may run a fractional by running:</p>
 <pre><code class="language-zsh"># from the root
-(venv) $ python -m tests.run_tests fractional 0.5
+(venv) $ python -m loadtest.run_tests fractional 0.5
 Executed 1 GET requests to https://jsonplaceholder.typicode.com/comments with payload size 100 bytes in 0.23 seconds.
 Executed 50 GET requests to https://jsonplaceholder.typicode.com/comments with payload size 500 bytes in 8.53 seconds.
 ...
 </code></pre>
-<p>This test will print results to console as well as save results as a <code>.csv</code> file in <code>tests/data</code> with a timestamped named.</p>
-<pre><code class="language-zsh">(venv) $ python -m tests.run_tests --help
+<p>This test will print results to console as well as save results as a <code>.csv</code> file in <code>loadtest/data</code> with a timestamped named.</p>
+<pre><code class="language-zsh">(venv) $ python -m loadtest.run_tests --help
 
- Usage: python -m tests.run_tests [OPTIONS]                                                                                                                                 
+ Usage: python -m loadtest.run_tests [OPTIONS]                                                                                                                                 
 
- Runs a series of load tests based on a configuration file.                                                                                                                 
+ Executes a series of load tests based on configurations defined in a JSON file, allowing for either full or fractional testing. The script     
+ generates a test matrix from the configuration, runs the tests as per the matrix, and saves the results to a CSV file.                                                                                                              
 
 ╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ --design-type               TEXT                             The design type of the test matrix: 'full' or 'fractional'. [default: full]                                 │
@@ -166,7 +165,7 @@ Executed 50 GET requests to https://jsonplaceholder.typicode.com/comments with p
 </code></pre>
 <h1 id="visualizing-tests">Visualizing Tests</h1>
 <p>You may run a streamlit app to visualize the results by running:</p>
-<pre><code>(venv) $ python -m streamlit run tests/visualize_results.py
+<pre><code>(venv) $ python -m streamlit run loadtest/visualize_results.py
 </code></pre>
 <p><img alt="" src="img/streamlit.png" /></p>
 <p>Within the app, you can select options based on:</p>
@@ -224,5 +223,5 @@ Executed 50 GET requests to https://jsonplaceholder.typicode.com/comments with p
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-03-20 17:47:34.767986+00:00
+Build Date UTC : 2024-03-20 18:27:17.124938+00:00
 -->

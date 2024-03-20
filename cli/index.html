@@ -50,9 +50,9 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#loadtestload_tester">loadtest.load_tester</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#testsrun_tests">tests.run_tests</a>
+    <li class="toctree-l2"><a class="reference internal" href="#loadtestrun_tests">loadtest.run_tests</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#testsvisualize_results">tests.visualize_results</a>
+    <li class="toctree-l2"><a class="reference internal" href="#loadtestvisualize_results">loadtest.visualize_results</a>
     </li>
     </ul>
                 </li>
@@ -102,7 +102,7 @@ including metrics such as median, 75th percentile, 95th percentile, and 99th per
 requests, and latency statistics (median, 75%, 95%, and 99% latencies) to provide a comprehensive view of the
 endpoint's performance under the specified load.</p>
 <p>Example usage:</p>
-<pre><code class="language-shell">python -m loadtest --url http://example.com --num_requests 100 --method GET --concurrency 10
+<pre><code class="language-shell">python -m loadtest --url http://example.com --num-requests 100 --method GET --concurrency 10
 </code></pre>
 <p>This command will benchmark the specified URL using 100 GET requests with 10 concurrent requests.</p>
 <p>Note: The tool requires an internet connection to perform the HTTP requests and the URL provided should be accessible
@@ -128,7 +128,7 @@ requests, it sends a payload of the specified size with each request. The functi
 requests and failures and prints a summary of the test results, including the total duration of the test, the number
 of successful creations (for POST requests), and the number of failures.</p>
 <p>Example usage:</p>
-<pre><code class="language-shell">python -m loadtest.load_tester --endpoint http://example.com/api --request_type POST --payload_size 500 --concurrency 10
+<pre><code class="language-shell">python -m loadtest.load_tester --endpoint http://example.com/api --request-type POST --payload-size 500 --concurrency 10
 </code></pre>
 <p>This command will send 10 concurrent POST requests to the specified endpoint, each with a payload of 500 bytes.</p>
 <p>Note: This script is intended for load testing purposes and should be used responsibly. Ensure that you have
@@ -140,7 +140,7 @@ or its network.</p>
 <li>creations (int): The number of successful resource creations (relevant for POST requests).</li>
 <li>failures (int): The number of requests that resulted in failure (e.g., due to server errors or timeouts).</li>
 </ul>
-<h2 id="testsrun_tests"><code>tests.run_tests</code></h2>
+<h2 id="loadtestrun_tests"><code>loadtest.run_tests</code></h2>
 <p>Executes a series of load tests based on configurations defined in a JSON file, allowing for either full or
 fractional testing. The script generates a test matrix from the configuration, runs the tests as per the matrix,
 and saves the results to a CSV file.</p>
@@ -163,15 +163,15 @@ of these combinations (fractional).</p>
 <li>Collects the results from each test, including the duration, number of creations, and number of failures.</li>
 <li>Saves the results in a CSV file with a timestamp in the filename to ensure uniqueness.</li>
 </ol>
-<p>Results are saved in the 'tests/data' directory with filenames following the 'results_YYYYMMDD_HHMMSS.csv' format.</p>
+<p>Results are saved in the 'loadtest/data' directory with filenames following the 'results_YYYYMMDD_HHMMSS.csv' format.</p>
 <p>Example usage:</p>
-<pre><code class="language-shell">python -m tests.run_tests --design_type fractional --fraction 0.5
+<pre><code class="language-shell">python -m loadtest.run_tests --design-type fractional --fraction 0.5
 </code></pre>
 <p>This command will execute a load test using a fractional design, testing only half of the possible combinations
 defined in the test configuration file.</p>
 <p>Note: This script assumes the presence of a JSON configuration file ('tests/test_config.json') and relies on the
 <code>LoadTester</code> class for executing the load tests.</p>
-<h2 id="testsvisualize_results"><code>tests.visualize_results</code></h2>
+<h2 id="loadtestvisualize_results"><code>loadtest.visualize_results</code></h2>
 <p>Launches a Streamlit app to visualize load test results from CSV files stored in a specified directory.</p>
 <p>The app provides interactive controls to select a results file, endpoint, request type, and metric for
 visualization. It displays a line chart and a detailed data table based on the selections.</p>
@@ -187,7 +187,7 @@ visualization. It displays a line chart and a detailed data table based on the s
 <li>An Altair line chart visualizing the selected metric over concurrency levels, colored by payload sizes.</li>
 <li>A data table displaying the detailed data for the selected filters.</li>
 </ul>
-<p>To run the app, execute the command: <code>python -m streamlit run tests/visualize_results.py --data-dir &lt;path_to_data_dir&gt;</code></p>
+<p>To run the app, execute the command: <code>python -m streamlit run loadtest/visualize_results.py --data-dir &lt;path_to_data_dir&gt;</code></p>
               
             </div>
           </div><footer>
