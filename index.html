@@ -39,14 +39,12 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href=".">Overview</a>
-    <ul class="current">
-    </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="README.md">Home</a>
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="cli/">CLI Reference</a>
+                <li class="toctree-l1"><a class="reference internal" href="cli/">API</a>
                 </li>
               </ul>
       </div>
@@ -89,36 +87,52 @@ $ source venv/bin/activate
 <h1 id="execute">Execute</h1>
 <pre><code>(venv) $ python -m loadtest
 
-┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Metric               ┃ Value                 ┃
-┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
-│ URL                  │ https://fireworks.ai/ │
-│ Total Requests       │ 100                   │
-│ Failed Requests      │ 0                     │
-│ Median Latency       │ 0.3541 seconds        │
-│ 75% Latency          │ 0.4154 seconds        │
-│ 95% Latency          │ 0.6565 seconds        │
-│ 99% Latency          │ 0.7993 seconds        │
-└──────────────────────┴───────────────────────┘
+python -m loadtest
+
+┏━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Metric               ┃ Value                                 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ BASE_URL             │ https://jsonplaceholder.typicode.com/ │
+│ URL                  │ comments                              │
+│ Total Requests       │ 100                                   │
+│ Failed Requests      │ 0                                     │
+│ Median Latency       │ 0.1623 seconds                        │
+│ 75% Latency          │ 0.1676 seconds                        │
+│ 95% Latency          │ 0.2029 seconds                        │
+│ 99% Latency          │ 0.2076 seconds                        │
+└──────────────────────┴───────────────────────────────────────┘
 </code></pre>
 <p>Since <code>loadtest</code> is a <code>typer</code> function, you may use <code>--help</code> to provide simple docs:</p>
 <pre><code>(venv) $ python -m loadtest --help
+Executes a simple HTTP benchmarking tool that performs a specified number of HTTP requests 
+ to a given URL, displays the results including various latency metrics, and handles        
+ concurrent requests.                                                                       
 
- Usage: python -m loadtest [OPTIONS]                                                                                    
+╭─ Options ────────────────────────────────────────────────────────────────────────────────╮
+│ --base-url                  TEXT                           The Base URL to benchmark.    │
+│                                                            [default:                     │
+│                                                            https://jsonplaceholder.typi… │
+│ --url                       TEXT                           The URL to benchmark.         │
+│                                                            [default: comments]           │
+│ --num-requests              INTEGER                        Total number of requests to   │
+│                                                            perform.                      │
+│                                                            [default: 100]                │
+│ --method                    TEXT                           HTTP method to use.           │
+│                                                            [default: GET]                │
+│ --concurrency               INTEGER                        Number of concurrent          │
+│                                                            requests.                     │
+│                                                            [default: 1]                  │
+│ --install-completion        [bash|zsh|fish|powershell|pws  Install completion for the    │
+│                             h]                             specified shell.              │
+│                                                            [default: None]               │
+│ --show-completion           [bash|zsh|fish|powershell|pws  Show completion for the       │
+│                             h]                             specified shell, to copy it   │
+│                                                            or customize the              │
+│                                                            installation.                 │
+│                                                            [default: None]               │
+│ --help                                                     Show this message and exit.   │
+╰──────────────────────────────────────────────────────────────────────────────────────────╯
 
- Simple HTTP benchmarking tool.                                                                                         
-╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ --url                       TEXT                             The URL to benchmark. [default: https://fireworks.ai/]  │
-│ --num-requests              INTEGER                          Total number of requests to perform. [default: 100]     │
-│ --method                    TEXT                             HTTP method to use. [default: GET]                      │
-│ --concurrency               INTEGER                          Number of concurrent requests. [default: 1]             │
-│ --install-completion        [bash|zsh|fish|powershell|pwsh]  Install completion for the specified shell.             │
-│                                                              [default: None]                                         │
-│ --show-completion           [bash|zsh|fish|powershell|pwsh]  Show completion for the specified shell, to copy it or  │
-│                                                              customize the installation.                             │
-│                                                              [default: None]                                         │
-│ --help                                                       Show this message and exit.                             │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 </code></pre>
 <h1 id="tests">Tests</h1>
 <p>Next, you may modify the load test matrix by modifying the file <code>loadtest/test_config.json</code>:</p>
@@ -184,9 +198,6 @@ Executed 50 GET requests to https://jsonplaceholder.typicode.com/comments with p
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="cli/" class="btn btn-neutral float-right" title="CLI Reference">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -209,8 +220,6 @@ Executed 50 GET requests to https://jsonplaceholder.typicode.com/comments with p
     
     
     
-      <span><a href="cli/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
   </span>
 </div>
     <script src="js/jquery-3.6.0.min.js"></script>
@@ -229,5 +238,5 @@ Executed 50 GET requests to https://jsonplaceholder.typicode.com/comments with p
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-03-20 19:03:33.284653+00:00
+Build Date UTC : 2024-03-21 00:29:24.652125+00:00
 -->
