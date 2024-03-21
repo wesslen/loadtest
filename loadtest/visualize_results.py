@@ -1,3 +1,4 @@
+# loadtest/visualize_results.py
 import streamlit as st
 import pandas as pd
 import altair as alt
@@ -43,12 +44,22 @@ def visualize_data(
     request_type = st.selectbox(
         "Select the type of request", data["Request Type"].unique()
     )
-    y_axis = st.selectbox("Select Y-axis metric", ["Duration", "Failures"])
+    y_axis = st.selectbox("Select Y-axis metric", ["Average Duration", "Duration", "Failures"])
 
     # Filter data based on the selected request type and endpoint
     filtered_data = data[
         (data["Request Type"] == request_type) & (data["Endpoint"] == endpoint)
     ]
+
+    if y_axis == "Average Duration" or y_axis == "Duration":
+        # Calculate average duration if needed
+        filtered_data["Average Duration"] = filtered_data["Duration"] / filtered_data["Concurrency"]
+        if y_axis == "Average Duration":
+            y_axis_value = "Average Duration"
+        else:
+            y_axis_value = "Duration"
+    else:
+        y_axis_value = y_axis
 
     # Generate and display the Altair chart
     st.markdown("### Results")
@@ -57,13 +68,13 @@ def visualize_data(
         .mark_line(point=True)
         .encode(
             x=alt.X("Concurrency:Q", title="Concurrency"),
-            y=alt.Y(f"{y_axis}:Q", title=y_axis),
+            y=alt.Y(f"{y_axis_value}:Q", title=y_axis_value),
             color=alt.Color("Payload Size:N", title="Payload Size"),
             tooltip=[
                 alt.Tooltip("Endpoint:N", title="Endpoint"),
                 alt.Tooltip("Request Type:N", title="Request Type"),
                 alt.Tooltip("Concurrency:Q", title="Concurrency"),
-                alt.Tooltip(f"{y_axis}:Q", title=y_axis),
+                alt.Tooltip(f"{y_axis_value}:Q", title=y_axis_value),
                 alt.Tooltip("Payload Size:N", title="Payload Size"),
             ],
         )
@@ -74,11 +85,11 @@ def visualize_data(
 
     # Display the data table below the chart
     st.markdown("### Detailed Data Table")
-    st.write(
-        filtered_data[
-            ["Endpoint", "Request Type", "Payload Size", "Concurrency", y_axis]
-        ]
-    )
+    if y_axis_value != "Duration":  # Show Average Duration in the table if selected
+        display_columns = ["Endpoint", "Request Type", "Payload Size", "Concurrency", y_axis_value]
+    else:
+        display_columns = ["Endpoint", "Request Type", "Payload Size", "Concurrency", "Duration"]
+    st.write(filtered_data[display_columns])
 
 
 if __name__ == "__main__":
