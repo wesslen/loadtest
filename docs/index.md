@@ -42,13 +42,17 @@ python -m loadtest
 │ 95% Latency          │ 0.2029 seconds                        │
 │ 99% Latency          │ 0.2076 seconds                        │
 └──────────────────────┴───────────────────────────────────────┘
+
 ```
 
 Since `loadtest` is a `typer` function, you may use `--help` to provide simple docs:
 
 ```
 (venv) $ python -m loadtest --help
-Executes a simple HTTP benchmarking tool that performs a specified number of HTTP requests 
+                                                                                                            
+ Usage: python -m loadtest [OPTIONS]                                                                                    
+                                                                                                            
+ Executes a simple HTTP benchmarking tool that performs a specified number of HTTP requests 
  to a given URL, displays the results including various latency metrics, and handles        
  concurrent requests.                                                                       
                                                                                             
@@ -121,7 +125,8 @@ This test will print results to console as well as save results as a `.csv` file
 
 ```zsh
 (venv) $ python -m loadtest.run_tests --help
- Usage: python -m loadtest.run_tests [OPTIONS]                                                                                                  
+                                                                                                                                                                      
+  Usage: python -m loadtest.run_tests [OPTIONS]                                                                                                  
                                                                                                                                                 
  Executes a series of load tests based on configurations defined in a JSON file, allowing for either full or fractional testing. The script     
  generates a test matrix from the configuration, runs the tests as per the matrix, and saves the results to a specified output directory.       
